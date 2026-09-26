@@ -3,6 +3,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -19,7 +20,7 @@ jobs:
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
       - name: Build APK
-        run: yes | buildozer android debug
+        run: buildozer android debug
       - name: Upload APK
         if: always()
         uses: actions/upload-artifact@v4
